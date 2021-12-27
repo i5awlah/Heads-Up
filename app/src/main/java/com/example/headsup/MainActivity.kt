@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun fetchDataFromLocalDB() {
-        celebrities = databaseHelper.readData()
+        celebrities = databaseHelper.readCelebrity()
     }
 
     private fun requestAPI() {

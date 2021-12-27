@@ -14,6 +14,8 @@ class DataActivity : AppCompatActivity() {
         val binding = ActivityDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         binding.apply {
             btnAdd.setOnClickListener {
                 val name = etCelebrity.text.toString()
@@ -27,9 +29,39 @@ class DataActivity : AppCompatActivity() {
                 etTaboo3.text.clear()
 
                 if (name.isNotEmpty() && taboo1.isNotEmpty() && taboo2.isNotEmpty() && taboo3.isNotEmpty()) {
-                    if (databaseHelper.saveData(name, taboo1, taboo2, taboo3).toInt() != -1)
+                    val newCelebrity = Celebrity(name,0, taboo1, taboo2, taboo3)
+                    if (databaseHelper.addCelebrity(newCelebrity) != -1)
                         Toast.makeText(this@DataActivity, "Added successfully!", Toast.LENGTH_LONG).show()
                 }
+
+            }
+
+            btnUpdate.setOnClickListener {
+                val pk = etPK.text.toString().toInt()
+                val name = etCelebrity.text.toString()
+                val taboo1 = etTaboo1.text.toString()
+                val taboo2 = etTaboo2.text.toString()
+                val taboo3 = etTaboo3.text.toString()
+
+                etPK.text.clear()
+                etCelebrity.text.clear()
+                etTaboo1.text.clear()
+                etTaboo2.text.clear()
+                etTaboo3.text.clear()
+
+                if (name.isNotEmpty() && taboo1.isNotEmpty() && taboo2.isNotEmpty() && taboo3.isNotEmpty()) {
+                    val updatedCelebrity = Celebrity(name, pk, taboo1, taboo2, taboo3)
+                    if (databaseHelper.updateCelebrity(updatedCelebrity) != -1)
+                        Toast.makeText(this@DataActivity, "Updated successfully!", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            btnDelete.setOnClickListener {
+                val pk = etPK.text.toString().toString().toInt()
+                etPK.text.clear()
+
+                    if (databaseHelper.deleteCelebrity(pk) != -1)
+                        Toast.makeText(this@DataActivity, "Deleted successfully!", Toast.LENGTH_LONG).show()
 
             }
         }
