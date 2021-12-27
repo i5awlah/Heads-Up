@@ -20,6 +20,8 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
+    private val databaseHelper by lazy { DatabaseHelper(applicationContext) }
+
     lateinit var binding: ActivityMainBinding
     private val url = "https://dojo-recipes.herokuapp.com/celebrities/?format=json"
     var celebrities = arrayListOf<Celebrity>()
@@ -32,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        requestAPI()
+//        requestAPI()
+        fetchDataFromLocalDB()
 
         // Use a start button to initiate the game
         binding.btnStart.setOnClickListener {
@@ -42,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnData.setOnClickListener {
             startActivity(Intent(this, DataActivity::class.java))
         }
+    }
+
+    private fun fetchDataFromLocalDB() {
+        celebrities = databaseHelper.readData()
     }
 
     private fun requestAPI() {
