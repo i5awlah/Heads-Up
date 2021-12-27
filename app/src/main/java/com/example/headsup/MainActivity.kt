@@ -1,5 +1,6 @@
 package com.example.headsup
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -37,6 +38,9 @@ class MainActivity : AppCompatActivity() {
         binding.btnStart.setOnClickListener {
             isStart = true
             startGame()
+        }
+        binding.btnData.setOnClickListener {
+            startActivity(Intent(this, DataActivity::class.java))
         }
     }
 
@@ -84,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         countDownTimer.cancel()
 
         binding.btnStart.visibility = View.GONE
+        binding.btnData.visibility = View.GONE
         binding.tvMain.text = "Please Rotate Device"
     }
 
